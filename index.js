@@ -59,7 +59,7 @@ function mutateArray(a) {
     for (let i = 0; i < a.length; i++) {
         a[i] = flattenJson(a[i]);
     }
-    return guestFilter(a);
+    return ascendAlphaOrder(guestFilter(a));
 }
 
 // For each JSON object flatten any nested JSON objects recursively and return result
@@ -102,6 +102,30 @@ function arrSum(arr) {
 function guestFilter(arr) {
     return arr.filter(function (obj) {
         return obj.guest_type === "guest";
+    });
+}
+
+//Sorts given array of objects by both last and first name
+function ascendAlphaOrder(arr) {
+    return arr.sort(function (a, b) {
+        //Convert both first and last name to lowercase to compare
+        let aFirstName = a.first_name.toLowerCase();
+        let aLastName = a.last_name.toLowerCase();
+
+        let bFirstName = b.first_name.toLowerCase();
+        let bLastName = b.last_name.toLowerCase();
+
+        //Compare which last name is greater and then compare first name and return result
+        if (aLastName > bLastName) {
+            return 1;
+        }
+        else if (aLastName < bLastName) {
+            return -1;
+        }
+        else {
+            if (aFirstName > bFirstName) { return 1; }
+            else if (aFirstName < bFirstName) { return -1; }
+            else { return 0; } }
     });
 }
 
