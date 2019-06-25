@@ -69,7 +69,12 @@ function flattenJson(arr) {
        let value = arr[key];
        //Check if value stored is an array, if so do not flatten
        if (value.constructor === Array) {
-           result[key] = value;
+           //Part 2. Check if array has key "some_total" and call array sum function
+           if (key === "some_array") {
+               result["some_total"] = arrSum(value);
+           } else {
+               result[key] = value;
+           }
        }
        //Check if value stored is an object, if so recurse and flatten
        else if (typeof value === 'object') {
@@ -82,6 +87,15 @@ function flattenJson(arr) {
        }
     });
     return result;
+}
+
+//Take all numbers in an arrays sums them and returns the value
+function arrSum(arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+    }
+    return sum;
 }
 
 $(document).ready(function() {
