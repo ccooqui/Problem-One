@@ -59,7 +59,7 @@ function mutateArray(a) {
     for (let i = 0; i < a.length; i++) {
         a[i] = flattenJson(a[i]);
     }
-    return a;
+    return guestFilter(a);
 }
 
 // For each JSON object flatten any nested JSON objects recursively and return result
@@ -96,6 +96,13 @@ function arrSum(arr) {
         sum += arr[i];
     }
     return sum;
+}
+
+//Sorts given array by if guest type is "guest"
+function guestFilter(arr) {
+    return arr.filter(function (obj) {
+        return obj.guest_type === "guest";
+    });
 }
 
 $(document).ready(function() {
